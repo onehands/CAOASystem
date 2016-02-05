@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ca.sqlMapper.AssetsSystem">
+ <sql id="all">
+  KeyID,
+  DataDate,
+  SequenceNum,
+  PhysicalNum,
+  AssetNum,
+  DeviceNum,
+  SpecificationModel,
+  EquipmentStatus,
+  PurchasingUnit,
+  PhysicalPersonInCharge,
+  PhysicalDeliveryDate,
+  PurchasePrice,
+  NetBookValue,
+  ResiduaValue,
+  FinancialTransferDate,
+  InspectionDate,
+  AssetManagementModel,
+  Brand,
+  SerialNum,
+  Manufacturer,
+  StorageLocation,
+  CurrentPhysicalTagNum,
+  NotesAndInstructions
+ </sql>
+ <insert id="insert" parameterType="java.util.List">
+  insert into AssetsSystem
+  (
+  <include refid="all" />
+  )values
+  <foreach collection="list" item="item" index="index"
+   separator=",">
+   (
+   #{item.keyID},
+   #{item.dataDate},
+   #{item.sequenceNum},
+   #{item.physicalNum},
+   #{item.assetNum},
+   #{item.deviceNum},
+   #{item.specificationModel},
+   #{item.equipmentStatus},
+   #{item.purchasingUnit},
+   #{item.physicalPersonInCharge},
+   #{item.physicalDeliveryDate},
+   #{item.purchasePrice},
+   #{item.netBookValue},
+   #{item.residuaValue},
+   #{item.financialTransferDate},
+   #{item.inspectionDate},
+   #{item.assetManagementModel},
+   #{item.brand},
+   #{item.serialNum},
+   #{item.manufacturer},
+   #{item.storageLocation},
+   #{item.currentPhysicalTagNum},
+   #{item.notesAndInstructions})
+  </foreach>
+ </insert>
+
+ <select id="selectByDataDate" parameterType="java.util.Map"
+  resultType="com.ca.model.MAssetsSystemVo">
+  select
+  <include refid="all" />
+  from AssetsSystem
+  where
+  DataDate = #{dataDate};
+ </select>
+ <select id="selectDetail" parameterType="java.util.Map"
+  resultType="com.ca.model.MAssetsSystemVo">
+  select
+  <include refid="all" />
+  from AssetsSystem
+  where
+  KeyID = #{keyID}
+ </select>
+
+ <select id="selectByCondition" parameterType="java.util.Map"
+  resultType="com.ca.model.MAssetsSystemVo">
+  select
+  <include refid="all" />
+  from AssetsSystem
+  ${condition};
+ </select>
+
+</mapper>
